@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ImageGallery</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_full_screen_view">Image Fullscreen View</string>
+    <string name="set_wallpaper">Set Wallpaper</string>
+    <string name="close">Close</string>
+    <string name="toast_wallpaper_set">Wallpapaer updated!</string>
+    <string name="toast_wallpaper_set_failed">Sorry! Unable to set wallpapaer</string>
+</resources>

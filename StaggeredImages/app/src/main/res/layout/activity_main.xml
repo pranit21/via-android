@@ -1,0 +1,134 @@
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        tools:context=".MainActivity">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                style="?android:attr/progressBarStyle" />
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+            <com.getbase.floatingactionbutton.FloatingActionsMenu
+                android:id="@+id/fab_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                app:fab_addButtonColorNormal="@color/colorPrimary"
+                app:fab_addButtonColorPressed="@color/colorPrimaryDark"
+                app:fab_addButtonPlusIconColor="@android:color/white"
+                app:fab_labelStyle="@style/menu_labels_style"
+                app:fab_labelsPosition="left">
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/upload_from_gal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:fab_colorNormal="@color/colorPrimary"
+                    app:fab_colorPressed="@color/colorPrimaryDark"
+                    app:fab_title="Upload a Picture"
+                    app:fab_size="mini"
+                    android:src="@drawable/ic_photo_library_white"/>
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/camera_capture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:fab_colorNormal="@color/colorPrimary"
+                    app:fab_colorPressed="@color/colorPrimaryDark"
+                    app:fab_size="mini"
+                    app:fab_title="Camera Capture"
+                    android:src="@drawable/ic_photo_camera_white"/>
+
+            </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+            <!--<com.github.clans.fab.FloatingActionMenu
+                android:id="@+id/fab_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                app:menu_labels_style="@style/MenuLabelsStyle"
+                app:menu_labels_showAnimation="@anim/jump_from_down"
+                app:menu_labels_hideAnimation="@anim/jump_to_down"
+                app:menu_animationDelayPerItem="0"
+                app:menu_shadowColor="#444"
+                app:menu_colorNormal="#FFB805"
+                app:menu_colorPressed="#F2AB00"
+                app:menu_colorRipple="#D99200">
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/upload_from_gal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_photo_library_white"
+                    app:fab_label="@string/upload_picture"
+                    style="@style/MenuButtonsStyle" />
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/camera_capture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_photo_camera_white"
+                    app:fab_label="@string/take_picture"
+                    style="@style/MenuButtonsStyle" />
+
+            </com.github.clans.fab.FloatingActionMenu>-->
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <!--<android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:src="@drawable/ic_add_white"
+        app:layout_anchor="@id/linear_layout"
+        app:layout_anchorGravity="bottom|right|end"/>-->
+
+</android.support.design.widget.CoordinatorLayout>

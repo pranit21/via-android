@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="food_products">
+        <item>सेब</item>
+        <item>केला</item>
+        <item>आम</item>
+        <item>संत्र</item>
+        <item>Pineapple</item>
+        <item>अंगूर</item>
+        <item>Chickoo</item>
+        <item>Papaya</item>
+    </string-array>
+</resources>

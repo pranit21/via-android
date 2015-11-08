@@ -1,0 +1,64 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity">
+
+    <TableRow>
+        <TextView
+            android:text="sans:"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/sans"
+            android:text="Hello World!"
+            android:typeface="sans"
+            android:textSize="20sp"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="serif:"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/serif"
+            android:text="Hello World!"
+            android:typeface="sans"
+            android:textSize="20sp"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="monospace:"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/monospace"
+            android:text="Hello World!"
+            android:typeface="monospace"
+            android:textSize="20sp"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="Custom:"
+            android:layout_marginRight="4dip"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/custom"
+            android:text="Hello World!"
+            android:textSize="20sp"/>
+    </TableRow>
+
+    <TableRow android:id="@+id/fileRow">
+        <TextView
+            android:text="fromFile:"
+            android:layout_marginRight="4dip"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/fromFile"
+            android:text="Hello World!"
+            android:textSize="20sp"/>
+    </TableRow>
+
+</TableLayout>

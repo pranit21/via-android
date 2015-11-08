@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="food_products">
+        <item>Apple</item>
+        <item>Banana</item>
+        <item>Mango</item>
+        <item>Orange</item>
+        <item>Pineapple</item>
+        <item>Grapes</item>
+        <item>Chickoo</item>
+        <item>Papaya</item>
+    </string-array>
+</resources>

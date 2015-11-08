@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">SharingDemo</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="send_text">Send Text</string>
+    <string name="send_with_chooser">Send with Chooser</string>
+    <string name="send_email">Send Email</string>
+    <string name="send_binary">Send Binary</string>
+    <string name="title_activity_share_handling">ShareHandlingActivity</string>
+</resources>

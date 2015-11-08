@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/my_details" >
+        <EditTextPreference
+            android:title="@string/your_name"
+            android:key="username"
+            android:summary="@string/username_summary" />
+
+        <CheckBoxPreference
+            android:title="@string/app_updates"
+            android:defaultValue="false"
+            android:summary="@string/app_updates_summary"
+            android:key="applicationUpdates" />
+
+        <ListPreference
+            android:title="@string/download_details"
+            android:summary="@string/download_details_summary"
+            android:key="downloadType"
+            android:defaultValue="1"
+            android:entries="@array/listArray"
+            android:entryValues="@array/listValues" />
+    </PreferenceCategory>
+</PreferenceScreen>

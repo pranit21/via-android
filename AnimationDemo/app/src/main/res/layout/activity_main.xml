@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
+
+        <Button
+            android:id="@+id/fade_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fade In" />
+
+        <Button
+            android:id="@+id/fade_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fade Out" />
+
+        <Button
+            android:id="@+id/cross_fading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cross Fading" />
+
+        <Button
+            android:id="@+id/blink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Blink" />
+
+        <Button
+            android:id="@+id/zoom_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Zoom In" />
+
+        <Button
+            android:id="@+id/zoom_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Zoom Out" />
+
+        <Button
+            android:id="@+id/rotate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rotate" />
+
+        <Button
+            android:id="@+id/move"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Move" />
+
+        <Button
+            android:id="@+id/slide_up"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Slide Up" />
+
+        <Button
+            android:id="@+id/slide_down"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Slide Down" />
+
+        <Button
+            android:id="@+id/bounce"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bounce" />
+
+        <Button
+            android:id="@+id/sequential_animation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sequential Animation" />
+
+        <Button
+            android:id="@+id/together_animation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Together Animation" />
+
+    </LinearLayout>
+
+</ScrollView>

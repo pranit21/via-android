@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">FontDemo</string>
+    <string name="action_settings">Settings</string>
+    <string name="fa_icon_areachart">&#xf1fe;</string>
+    <string name="fa_icon_linechart">&#xf201;</string>
+    <string name="fa_icon_piechart">&#xf200;</string>
+    <string name="friday_night">Friday Night</string>
+    <string name="admiration_pains">Admiration Pains</string>
+</resources>
