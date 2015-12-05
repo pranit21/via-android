@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="feedBg">#D3D6DB</color>
+    <color name="feedItemBg">#FFFFFF</color>
+    <color name="feedItemBorder">#C2C3C8</color>
+    <color name="link">#0A80D1</color>
+    <color name="timestamp">#A0A3A7</color>
+    <color name="white">#FFFFFF</color>
+</resources>

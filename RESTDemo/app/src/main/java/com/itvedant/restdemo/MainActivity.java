@@ -1,6 +1,7 @@
 package com.itvedant.restdemo;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -14,10 +15,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.itvedant.restdemo.app.AppConstant;
 import com.itvedant.restdemo.app.AppController;
 
@@ -36,6 +39,7 @@ public class MainActivity extends Activity {
     private EditText uname, pass;
     private Button login;
     String u, p;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,73 +49,75 @@ public class MainActivity extends Activity {
         uname = (EditText) findViewById(R.id.uname);
         pass = (EditText) findViewById(R.id.pass);
         login = (Button) findViewById(R.id.login_btn);
+        progressDialog = new ProgressDialog(this);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 u = uname.getText().toString();
                 p = pass.getText().toString();
-
-                Map<String, String> jsonParams = new HashMap<String, String>();
-                jsonParams.put("email", u);
-                jsonParams.put("password", p);
+                progressDialog.setMessage("Logging...");
+                progressDialog.show();
 
                 // Preparing volley's json object request
-                JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, AppConstant.API_ENDPOINT+"/login",
-                        new JSONObject(jsonParams), new Response.Listener<JSONObject>() {
+                StringRequest jsonObjReq = new StringRequest(Request.Method.POST, AppConstant.API_ENDPOINT+"login",
+                        new Response.Listener<String>() {
 
                     @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d(TAG, "Albums Response: " + response.toString());
-                        /*try {
-                            // Parsing the json response
-                            JSONArray entry = response.getJSONObject(TAG_FEED)
-                                    .getJSONArray(TAG_ENTRY);
+                    public void onResponse(String response) {
+                        Log.d(TAG, "Albums Response: " + response);
+                        progressDialog.hide();
 
-                            // loop through albums nodes and add them to album
-                            // list
-                            for (int i = 0; i < entry.length(); i++) {
-                                JSONObject albumObj = (JSONObject) entry.get(i);
-                                // album id
-                                String albumId = albumObj.getJSONObject(
-                                        TAG_GPHOTO_ID).getString(TAG_T);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String error = jsonObject.getString("error");
+                            if(error.equals("true")) {
+                                Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_LONG).show();
+                            } else {
+                                String name = jsonObject.getString("name");
+                                String email = jsonObject.getString("email");
+                                String apiKey = jsonObject.getString("apiKey");
+                                String createdAt = jsonObject.getString("createdAt");
 
-                                // album title
-                                String albumTitle = albumObj.getJSONObject(
-                                        TAG_ALBUM_TITLE).getString(TAG_T);
-
-                                Category album = new Category();
-                                album.setId(albumId);
-                                album.setTitle(albumTitle);
-
-                                // add album to list
-                                albums.add(album);
-
-                                Log.d(TAG, "Album Id: " + albumId
-                                        + ", Album Title: " + albumTitle);
+                                Toast.makeText(getApplicationContext(), name + "\n" + email + "\n" + apiKey + "\n" + createdAt, Toast.LENGTH_LONG).show();
                             }
-
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(getApplicationContext(),
-                                    getString(R.string.msg_unknown_error),
-                                    Toast.LENGTH_LONG).show();
-                        }*/
-
+                        }
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e(TAG, "Volley Error: " + error.getMessage());
+                        progressDialog.hide();
+
+                        String message = error.getMessage();
+                        NetworkResponse networkResponse = error.networkResponse;
+                        if(networkResponse != null && networkResponse.data != null) {
+                            switch (networkResponse.statusCode) {
+                                case 400:
+                                    String json = new String(networkResponse.data);
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(json);
+                                        message = jsonObject.getString("message");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                            }
+                        }
 
                         // show error toast
-                        Toast.makeText(getApplicationContext(),
-                                getString(R.string.splash_error),
-                                Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 
                     }
-                }) /*{
+                }) {
+                    /*@Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        HashMap<String, String> headers = new HashMap<String, String>();
+                        headers.put("Content-Type", "application/json; charset=utf-8");
+                        return headers;
+                    }*/
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> params = new HashMap<String, String>();
@@ -119,7 +125,7 @@ public class MainActivity extends Activity {
                         params.put("password", p);
                         return params;
                     }
-                }*/;
+                };
 
                 // disable the cache for this request, so that it always fetches updated
                 // json
