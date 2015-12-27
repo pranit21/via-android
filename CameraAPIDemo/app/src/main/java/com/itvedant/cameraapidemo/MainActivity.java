@@ -143,8 +143,7 @@ public class MainActivity extends ActionBarActivity {
             // bimatp factory
             BitmapFactory.Options options = new BitmapFactory.Options();
 
-            // downsizing image as it throws OutOfMemory Exception for larger
-            // images
+            // downsizing image as it throws OutOfMemory Exception for larger images
             options.inSampleSize = 8;
 
             final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
