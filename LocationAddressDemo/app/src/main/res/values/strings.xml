@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">LocationAddressDemo</string>
+    <string name="fetch_address">Fetch Address</string>
+    <string name="no_location_data_provided">No location data provided</string>
+    <string name="service_not_available">Service Not Available</string>
+    <string name="invalid_lat_long_used">Invalid Latitude and Longitude used</string>
+    <string name="no_address_found">No Address found</string>
+    <string name="address_found">Address found!</string>
+    <string name="no_geocoder_available">No geocoder available</string>
+</resources>
