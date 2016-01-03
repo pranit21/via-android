@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">LocationServicesDemo</string>
+    <string name="no_location_detected">No location detected</string>
+</resources>
