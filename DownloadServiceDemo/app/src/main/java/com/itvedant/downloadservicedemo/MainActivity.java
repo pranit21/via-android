@@ -29,11 +29,11 @@ public class MainActivity extends ActionBarActivity {
                     Toast.makeText(MainActivity.this,
                             "Download complete. Download URI: " + string,
                             Toast.LENGTH_LONG).show();
-                    textView.setText("Download done");
+                    textView.setText(R.string.download_now);
                 } else {
                     Toast.makeText(MainActivity.this, "Download failed",
                             Toast.LENGTH_LONG).show();
-                    textView.setText("Download failed");
+                    textView.setText(R.string.download_failed);
                 }
             }
         }
@@ -63,7 +63,7 @@ public class MainActivity extends ActionBarActivity {
         intent.putExtra(DownloadService.FILENAME, "index.php");
         intent.putExtra(DownloadService.URL, "http://www.itvedant.com/index.php");
         startService(intent);
-        textView.setText("Service started");
+        textView.setText(R.string.service_started);
     }
 
     @Override

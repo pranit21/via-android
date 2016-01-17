@@ -7,5 +7,8 @@
     <string name="download">Download</string>
     <string name="status">Status:</string>
     <string name="not_started">Not Started</string>
+    <string name="download_now">Download done</string>
+    <string name="download_failed">Download failed</string>
+    <string name="service_started">Service started</string>
 
 </resources>
