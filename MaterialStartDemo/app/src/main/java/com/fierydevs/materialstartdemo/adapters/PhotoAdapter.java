@@ -29,6 +29,8 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
     private Context context;
     private ImageLoader imageLoader = ImageLoader.getInstance();
 
+    // Unlike ListView, RecyclerView doesn’t come with an onItemClick interface,
+    // so we have to implement one in the adapter.
     OnItemClickListener onItemClickListener;
 
     public PhotoAdapter(Context applicationContext, List<Photos> photos) {
@@ -41,8 +43,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.simple_image_view, parent, false);
 
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -65,6 +66,9 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
 
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                // Generate background color for TextView using Palette API,
+                // when Image loading is completed
+
                 // Synchronous
                 // Palette palette = Palette.from(bitmap).generate();
 
@@ -90,6 +94,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
         return photos.size();
     }
 
+    // Custom ViewHolder class to bind all the Views inside each item of RecyclerView
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView imageView;
         public TextView textView;
@@ -101,21 +106,27 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> 
             textView = (TextView) itemView.findViewById(R.id.text_view);
             mainHolder = (LinearLayout) itemView.findViewById(R.id.main_holder);
 
+            // Set OnClickLister to whole item, so we can handle
+            // click event of each element inside that item
             mainHolder.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
+            // Handle onItemClick event
             if (onItemClickListener != null) {
                 onItemClickListener.onItemClick(itemView, getAdapterPosition());
             }
         }
     }
 
+    // Create OnItemClickListener interface that can be used by MainActivity
+    // to handle each item click
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
 
+    // Set OnItemClickListener interface that will communicate activity with this adapter's elements
     public void setOnItemClickListener(final OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }

@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +16,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -31,6 +36,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
+    // Flicker api key to fetch images
     private static final String FLICKR_API_KEY = "ff2c27b56a8c4af4861d4f4124d7668d";
 
     private ProgressDialog progressDialog;
@@ -39,7 +45,11 @@ public class MainActivity extends AppCompatActivity {
     private PhotoAdapter photoAdapter;
 
     private RecyclerView recyclerView;
+
+    // LinearLayout Manager for showing content in horizontal or vertical layout
     //private RecyclerView.LayoutManager layoutManager;
+
+    // StaggeredGridLayout to show content in linear or grid manner
     private StaggeredGridLayoutManager layoutManager;
 
     private boolean isGrid = false;
@@ -50,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Add toolbar as an actionbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -71,9 +83,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
-        //layoutManager = new LinearLayoutManager(this);
+        // layoutManager = new LinearLayoutManager(this);
 
         // use staggered grid layout manager
+        // Here spanCount is specified as 1, so it will look like linear layout
+        // If spanCount is specified more than 1 it will look like grid
         layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -82,20 +96,35 @@ public class MainActivity extends AppCompatActivity {
         photoAdapter = new PhotoAdapter(getApplicationContext(), photos);
         recyclerView.setAdapter(photoAdapter);
 
+        // Add onItemClickListener that is defined by us in PhotoAdapter class
+        // as RecyclerView don't have it's own onItemClickListener
         photoAdapter.setOnItemClickListener(new PhotoAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 Toast.makeText(getApplicationContext(), "Clicked " + position, Toast.LENGTH_SHORT).show();
 
+                Photos p = photos.get(position);
+
                 Intent intent = new Intent(MainActivity.this, DisplayActivity.class);
-                intent.putExtra(DisplayActivity.EXTRA_PARAM_ID, position);
-                startActivity(intent);
+                intent.putExtra(DisplayActivity.EXTRA_PARAM_IMG_URL, p.getUrl());
+                intent.putExtra(DisplayActivity.EXTRA_PARAM_TITLE, p.getTitle());
+                //startActivity(intent);
+
+                ImageView photoView = (ImageView) view.findViewById(R.id.image_view);
+
+                Pair<View, String> imagePair = Pair.create((View) photoView, "tImage");
+
+                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this, imagePair);
+                ActivityCompat.startActivity(MainActivity.this, intent, optionsCompat.toBundle());
             }
         });
 
         getPhotos();
     }
 
+    /*
+     * Get photos from flicker api and adds it to in PhotoAdapter.
+     */
     private void getPhotos() {
         String url = "https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key="+FLICKR_API_KEY+"&per_page=50&page=1&format=json&nojsoncallback=1";
 
@@ -149,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        menuItem = menu.findItem(R.id.action_change_layout);
+        menuItem = menu.findItem(R.id.action_change_orientation);
 
         return true;
     }
@@ -164,7 +193,8 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
-        } else if (id == R.id.action_change_layout) {
+        } else if (id == R.id.action_change_orientation) {
+            // Change orientation from linear to grid and grid back to linear
             if (isGrid) {
                 layoutManager.setSpanCount(1);
                 isGrid = false;

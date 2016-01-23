@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Bitmap icon = BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                        R.drawable.san_francisco);;
+                        R.drawable.san_francisco);
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                 icon.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
                 File f = new File(Environment.getExternalStorageDirectory() + File.separator + "temporary_file.jpg");

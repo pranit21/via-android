@@ -27,6 +27,7 @@ public class MainApplication extends Application {
         super.onCreate();
         instance = this;
 
+        // Set configuration options for ImageLoader of Universal Image library
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
                 .cacheInMemory(true)
