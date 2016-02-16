@@ -153,9 +153,10 @@ public class MainActivity extends AppCompatActivity
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     REQUEST_LOCATION);
+        } else {
+            location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+            fetchAddress();
         }
-        location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-        fetchAddress();
     }
 
     @Override

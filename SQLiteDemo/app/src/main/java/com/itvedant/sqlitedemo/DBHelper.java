@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "MyContacts.db";
     public static final String CONTACTS_TABLE_NAME = "contacts";
-    public static final String CONTACTS_COLUMN_ID = "id";
+    public static final String CONTACTS_COLUMN_ID = "_id";
     public static final String CONTACTS_COLUMN_NAME = "name";
     public static final String CONTACTS_COLUMN_EMAIL = "email";
     public static final String CONTACTS_COLUMN_STREET = "street";
@@ -31,7 +31,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(
                 "create table " + CONTACTS_TABLE_NAME +
-                        " (id integer primary key, name text, phone text, email text, street text, place text)"
+                        " (" + CONTACTS_COLUMN_ID + " integer primary key, name text, phone text, email text, street text, place text)"
         );
     }
 
@@ -58,7 +58,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor getData(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + CONTACTS_TABLE_NAME + " where id=" + id, null);
+        Cursor res = db.rawQuery("SELECT * FROM " + CONTACTS_TABLE_NAME + " where _id=" + id, null);
 
         return res;
     }
@@ -79,14 +79,14 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("street", street);
         contentValues.put("place", place);
 
-        db.update(CONTACTS_TABLE_NAME, contentValues, "id = ? ", new String[] { Integer.toString(id) } );
+        db.update(CONTACTS_TABLE_NAME, contentValues, "_id = ? ", new String[] { Integer.toString(id) } );
 
         return true;
     }
 
     public Integer deleteContact(Integer id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(CONTACTS_TABLE_NAME, "id = ? ", new String[] { Integer.toString(id) });
+        return db.delete(CONTACTS_TABLE_NAME, "_id = ? ", new String[] { Integer.toString(id) });
     }
     public ArrayList getAllContacts()
     {

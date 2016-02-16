@@ -5,5 +5,5 @@ package com.itvedant.restdemo.app;
  */
 public class AppConstant {
     public static final String API_KEY = "";
-    public static final String API_ENDPOINT = "http://192.168.1.104/todo_demo/v1/";
+    public static final String API_ENDPOINT = "http://192.168.1.104/todo_demo/v1/index.php/";
 }
