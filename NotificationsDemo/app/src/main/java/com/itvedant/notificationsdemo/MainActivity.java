@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
         /* Increase notification number every time a new notification arrives */
         mBuilder.setNumber(++numMessages);
 
+        //mBuilder.setOngoing(true);
+
         // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(this, NotificationView.class);
 
@@ -118,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         mBuilder.setTicker("Updated Message Alert!");
         mBuilder.setSmallIcon(R.drawable.ic_notifications_black_48dp);
         mBuilder.setAutoCancel(true);
+        mBuilder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
 
         /* Increase notification number every time a new notification arrives */
         mBuilder.setNumber(++numMessages);
@@ -158,6 +161,11 @@ public class MainActivity extends AppCompatActivity {
 
         mBuilder.setContentIntent(resultPendingIntent);
 
+        // Set actions
+        Intent intent = new Intent(getApplicationContext(), NotificationView.class);
+        PendingIntent pDownload = PendingIntent.getService(getApplicationContext(), 0, intent, 0);
+        mBuilder.addAction(R.drawable.ic_file_download_black_48dp, "Download", pDownload);
+
         mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -183,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
                             // Sets the progress indicator to a max value, the
                             // current completion percentage, and "determinate" state
                             mBuilder.setProgress(100, incr, false);
+                            mBuilder.setOngoing(true);
                             // Displays the progress bar for the first time.
                             mNotificationManager.notify(0, mBuilder.build());
                             // Sleeps the thread, simulating an operation that takes time
@@ -197,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
                         mBuilder.setContentText("Download complete")
                                 // Removes the progress bar
                                 .setProgress(0, 0, false);
+                        mBuilder.setOngoing(false);
                         mNotificationManager.notify(0, mBuilder.build());
                     }
                 }

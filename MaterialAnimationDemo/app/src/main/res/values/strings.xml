@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">MaterialAnimationDemo</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_transition1">TransitionActivity1</string>
+    <string name="title_activity_transition2">TransitionActivity2</string>
+    <string name="title_activity_transition3">TransitionActivity3</string>
+    <string name="transition_reveal1">Reveal Transition</string>
 </resources>

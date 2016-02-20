@@ -18,6 +18,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".TransitionActivity1"
+            android:label="@string/title_activity_transition1"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".TransitionActivity2"
+            android:label="@string/title_activity_transition2"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".TransitionActivity3"
+            android:label="@string/title_activity_transition3"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SharedElementActivity" />
+        <activity android:name=".AnimationsActivity1" />
+        <activity android:name=".AnimationsActivity2" />
+        <activity android:name=".RevealActivity"></activity>
     </application>
 
 </manifest>

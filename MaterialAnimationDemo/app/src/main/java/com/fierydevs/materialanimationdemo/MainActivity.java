@@ -5,23 +5,39 @@ import android.graphics.Path;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.transition.Slide;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     FloatingActionButton fab;
     TextView textView;
+    private List<Sample> samples;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setupWindowAnimations();
+        setupSamples();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        setupLayout();
 
         textView = (TextView) findViewById(R.id.textView);
 
@@ -53,6 +69,32 @@ public class MainActivity extends AppCompatActivity {
                 anim.start();
             }
         });
+    }
+
+    private void setupLayout() {
+        /*RecyclerView recyclerView = (RecyclerView) findViewById(R.id.sample_list);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        SamplesRecyclerAdapter samplesRecyclerAdapter = new SamplesRecyclerAdapter(this, samples);
+        recyclerView.setAdapter(samplesRecyclerAdapter);*/
+    }
+
+    private void setupSamples() {
+        samples = Arrays.asList(
+                new Sample(ContextCompat.getColor(this, R.color.sample_red), "Transitions"),
+                new Sample(ContextCompat.getColor(this, R.color.sample_blue), "Shared Elements"),
+                new Sample(ContextCompat.getColor(this, R.color.sample_green), "View animations"),
+                new Sample(ContextCompat.getColor(this, R.color.sample_yellow), "Circular Reveal Animation")
+        );
+    }
+
+    private void setupWindowAnimations() {
+        // Re-enter transition is executed when returning to this activity
+        Slide slideTransition = new Slide();
+        slideTransition.setSlideEdge(Gravity.LEFT);
+        slideTransition.setDuration(1000);
+        getWindow().setReenterTransition(slideTransition);
+        getWindow().setExitTransition(slideTransition);
     }
 
     @Override

@@ -32,11 +32,11 @@ public class TechniqueFive extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        TextView text = new TextView(this);
+        /*TextView text = new TextView(this);
         text.setText(R.string.title_activity_technique5);
         text.setTextAppearance(this, android.R.style.TextAppearance_Material_Widget_ActionBar_Title_Inverse);
 
-        toolbar.addView(text);
+        toolbar.addView(text);*/
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
