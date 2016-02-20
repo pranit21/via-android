@@ -4,6 +4,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
@@ -95,6 +97,10 @@ public class MainActivity extends AppCompatActivity {
                 );
 
         mBuilder.setContentIntent(resultPendingIntent);
+
+        // set big picture image
+        Bitmap woman = BitmapFactory.decodeResource(getResources(), R.drawable.woman);
+        mBuilder.setStyle(new NotificationCompat.BigPictureStyle().bigPicture(woman));
 
         mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -205,8 +211,8 @@ public class MainActivity extends AppCompatActivity {
                         // When the loop is finished, updates the notification
                         mBuilder.setContentText("Download complete")
                                 // Removes the progress bar
-                                .setProgress(0, 0, false);
-                        mBuilder.setOngoing(false);
+                                .setProgress(0, 0, false)
+                                .setOngoing(false);
                         mNotificationManager.notify(0, mBuilder.build());
                     }
                 }
