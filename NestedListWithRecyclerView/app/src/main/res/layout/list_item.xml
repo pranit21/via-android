@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/commonListItemStyle"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/list_item_height"
+    android:background="@drawable/bg_swipe_item_neutral">
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imagePath"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"/>
+
+            <TextView
+                android:id="@android:id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|left"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                tools:ignore="RtlHardcoded"
+                android:layout_toRightOf="@id/imagePath"
+                android:textSize="16dp"
+                android:text="Product Name"/>
+
+            <TextView
+                android:id="@+id/productQty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|left"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@android:id/text1"
+                android:layout_toRightOf="@id/imagePath"
+                android:text="Product Qty"/>
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+</FrameLayout>
