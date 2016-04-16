@@ -127,8 +127,7 @@ public class MainActivity extends Activity {
                     }
                 };
 
-                // disable the cache for this request, so that it always fetches updated
-                // json
+                // disable the cache for this request, so that it always fetches updated json
                 jsonObjReq.setShouldCache(false);
 
                 // Making the request
