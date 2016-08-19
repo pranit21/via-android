@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity
             // is set to true, but no attempt is made to fetch the address (see
             // fetchAddressButtonHandler()) . Instead, we start the intent service here if the
             // user has requested an address, since we now have a connection to GoogleApiClient.
-            if (addressRequested) {
+            if (!addressRequested) {
                 startIntentService();
             }
         }

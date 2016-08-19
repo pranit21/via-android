@@ -17,6 +17,12 @@ public class DetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_rssitem_detail, container, false);
+		
+		Bundle b = getArguments();
+		if(b != null) {
+			String str = b.getString(DetailActivity.EXTRA_URL);
+			setText(str);
+		}
 
         return view;
     }
