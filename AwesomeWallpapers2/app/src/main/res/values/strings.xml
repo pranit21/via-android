@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AwesomeWallpapers</string>
+    <string name="photo_name">Photo Name</string>
+    <string name="toast_wallpaper_set">Wallpaper set successfully</string>
+    <string name="toast_wallpaper_set_failed">Wallpaper set failed</string>
+    <string name="set_wallpaper">Set Wallpaper</string>
+</resources>
