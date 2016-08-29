@@ -10,15 +10,28 @@ import io.realm.RealmConfiguration;
  */
 
 public class AppController extends Application {
+    private Realm realm;
+    private RealmConfiguration realmConfiguration;
+    private static AppController instance;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
 
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this)
+        realmConfiguration = new RealmConfiguration.Builder(this)
                 .name(Realm.DEFAULT_REALM_NAME)
                 .schemaVersion(0)
                 .deleteRealmIfMigrationNeeded()
                 .build();
-        Realm.setDefaultConfiguration(realmConfiguration);
+        realm = Realm.getInstance(realmConfiguration);
+    }
+
+    public static synchronized AppController getInstance() {
+        return instance;
+    }
+
+    public Realm getRealmInstance() {
+        return realm;
     }
 }
