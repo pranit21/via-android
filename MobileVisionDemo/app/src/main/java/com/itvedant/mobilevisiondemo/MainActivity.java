@@ -1,5 +1,6 @@
 package com.itvedant.mobilevisiondemo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -75,10 +76,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == BARCODE_CAPTURE_REQUEST) {
-            if (resultCode == CommonStatusCodes.SUCCESS) {
+            if (resultCode == Activity.RESULT_OK) {
                 if (data != null) {
                     Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BARCODE_OBJECT);
-                    barcodeValue.setText(barcode.displayValue);
+                    if (barcode.format == Barcode.QR_CODE && barcode.valueFormat == Barcode.TEXT)
+                        barcodeValue.setText("Simple text: " + barcode.displayValue);
+                    if (barcode.format == Barcode.QR_CODE && barcode.valueFormat == Barcode.URL)
+                        barcodeValue.setText("Url: " + barcode.displayValue);
                     Log.d(TAG, "Barcode read: " + barcode.displayValue);
                 } else {
                     barcodeValue.setText(R.string.barcode_failure);
