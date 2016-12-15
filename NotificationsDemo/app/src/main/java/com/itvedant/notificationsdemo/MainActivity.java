@@ -20,7 +20,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     private NotificationManager mNotificationManager;
-    NotificationCompat.Builder mBuilder;
+    private NotificationCompat.Builder mBuilder;
     private int notificationID = 100;
     private int numMessages = 0;
 

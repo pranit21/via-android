@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp"
+    android:background="@color/colorPrimaryDark"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.itvedant.firebasedemo.SignUpActivity"
+    tools:showIn="@layout/activity_sign_up">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="30dp"
+        android:src="@mipmap/ic_launcher"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/email"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/password"
+            android:hint="@string/password"
+            android:textColorHint="@android:color/white"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:imeActionId="@+id/login"
+            android:imeOptions="actionUnspecified"
+            android:textColor="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/sign_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:textAppearanceSmall"
+        android:text="@string/register"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorAccent"/>
+
+    <Button
+        android:id="@+id/forgot_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:textAppearance"
+        android:text="@string/forgot_password"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:background="@null"/>
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:textAppearance"
+        android:text="@string/log_me_in"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:layout_marginTop="20dp"
+        android:background="@null"/>
+</LinearLayout>
+

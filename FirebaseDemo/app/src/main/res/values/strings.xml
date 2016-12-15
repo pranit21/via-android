@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Firebase Demo</string>
+    <string name="action_settings">Settings</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="log_me_in">Already Registered? Log me in!</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="login">Login</string>
+    <string name="get_registered">Not a member? Get registered!</string>
+</resources>

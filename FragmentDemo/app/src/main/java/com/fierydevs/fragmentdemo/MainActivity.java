@@ -43,13 +43,13 @@ public class MainActivity extends AppCompatActivity implements MyListFragment.On
                     .findFragmentById(R.id.detailFragment);
             fragment.setText(link);
         } else {
-            Intent intent = new Intent(getApplicationContext(),
+            /*Intent intent = new Intent(getApplicationContext(),
                     DetailActivity.class);
             intent.putExtra(DetailActivity.EXTRA_URL, link);
-            startActivity(intent);
+            startActivity(intent);*/
 
 
-            /*// Create fragment and give it an argument specifying the article it should show
+            // Create fragment and give it an argument specifying the article it should show
             DetailFragment detailFragment = new DetailFragment();
             Bundle args = new Bundle();
             args.putString(DetailActivity.EXTRA_URL, link);
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements MyListFragment.On
             transaction.addToBackStack(null);
 
             // Commit the transaction
-            transaction.commit();*/
+            transaction.commit();
         }
     }
 }
