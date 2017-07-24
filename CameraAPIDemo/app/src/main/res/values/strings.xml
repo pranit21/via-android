@@ -6,4 +6,5 @@
     <string name="take_a_picture">Take a Picture</string>
     <string name="record_a_video">Record a Video</string>
     <string name="preview">Preview</string>
+    <string name="image_preview">Image Preview</string>
 </resources>

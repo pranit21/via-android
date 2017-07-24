@@ -1,12 +1,17 @@
 package com.itvedant.cameraapidemo;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -28,17 +33,18 @@ public class MainActivity extends AppCompatActivity {
     // Activity request codes
     private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
     private static final int CAMERA_CAPTURE_VIDEO_REQUEST_CODE = 200;
+    private static final int STORAGE_REQUEST_CODE = 300;
+    private static final int VIDEO_PERMISSION_REQUEST_CODE = 400;
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
 
     // directory name to store captured images and videos
     private static final String IMAGE_DIRECTORY_NAME = "My Camera";
 
-    private Uri fileUri; // file url to store image/video
+    private String filePath;
 
     private ImageView imgPreview;
     private VideoView videoPreview;
-    private Button btnCapturePicture, btnRecordVideo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +53,19 @@ public class MainActivity extends AppCompatActivity {
 
         imgPreview = (ImageView) findViewById(R.id.imgPreview);
         videoPreview = (VideoView) findViewById(R.id.videoPreview);
-        btnCapturePicture = (Button) findViewById(R.id.btnCapturePicture);
-        btnRecordVideo = (Button) findViewById(R.id.btnRecordVideo);
+        Button btnCapturePicture = (Button) findViewById(R.id.btnCapturePicture);
+        Button btnRecordVideo = (Button) findViewById(R.id.btnRecordVideo);
 
         btnCapturePicture.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // capture picture
-                captureImage();
+                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_REQUEST_CODE);
+                } else {
+                    // capture picture
+                    captureImage();
+                }
             }
         });
 
@@ -63,8 +73,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                // record video
-                recordVideo();
+                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                        && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO}, VIDEO_PERMISSION_REQUEST_CODE);
+                } else {
+                    // record video
+                    recordVideo();
+                }
             }
         });
     }
@@ -72,27 +87,39 @@ public class MainActivity extends AppCompatActivity {
     private void captureImage() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            File file = getOutputMediaFile(MEDIA_TYPE_IMAGE);
 
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-
-        // start the image capture Intent
-        startActivityForResult(intent, CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
+            if (file != null) {
+                Uri fileUri = FileProvider.getUriForFile(this, "com.itvedant.cameraapidemo.fileprovider", file);
+                //Uri fileUri = Uri.fromFile(file);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+                // start the image capture Intent
+                startActivityForResult(intent, CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
+            }
+        }
     }
 
     private void recordVideo() {
         Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
 
-        fileUri = getOutputMediaFileUri(MEDIA_TYPE_VIDEO);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            File file = getOutputMediaFile(MEDIA_TYPE_VIDEO);
 
-        // set video quality
-        // 1- for high quality video
-        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+            if (file != null) {
+                Uri fileUri = FileProvider.getUriForFile(this, "com.itvedant.cameraapidemo.fileprovider", file);
+                //Uri fileUri = Uri.fromFile(file);
 
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+                // set video quality
+                // 1- for high quality video
+                intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
 
-        // start the video capture Intent
-        startActivityForResult(intent, CAMERA_CAPTURE_VIDEO_REQUEST_CODE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+
+                // start the video capture Intent
+                startActivityForResult(intent, CAMERA_CAPTURE_VIDEO_REQUEST_CODE);
+            }
+        }
     }
 
     @Override
@@ -146,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
             // downsizing image as it throws OutOfMemory Exception for larger images
             options.inSampleSize = 8;
 
-            final Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
+            final Bitmap bitmap = BitmapFactory.decodeFile(filePath,
                     options);
 
             imgPreview.setImageBitmap(bitmap);
@@ -161,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
             imgPreview.setVisibility(View.GONE);
 
             videoPreview.setVisibility(View.VISIBLE);
-            videoPreview.setVideoPath(fileUri.getPath());
+            videoPreview.setVideoPath(filePath);
             // start playing
             videoPreview.start();
         } catch (Exception e) {
@@ -174,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
 
         // save file url in bundle as it will be null on screen orientation changes
-        outState.putParcelable("file_uri", fileUri);
+        //outState.putParcelable("file_uri", filePath);
     }
 
     @Override
@@ -182,17 +209,22 @@ public class MainActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
 
         // get the file url
-        fileUri = savedInstanceState.getParcelable("file_uri");
+        //filePath = savedInstanceState.getParcelable("file_uri");
     }
 
-    /**
-     * Creating file uri to store image/video
-     */
-    public Uri getOutputMediaFileUri(int type) {
-        return Uri.fromFile(getOutputMediaFile(type));
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == STORAGE_REQUEST_CODE) {
+            if (grantResults.length > 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                captureImage();
+        } else if (requestCode == VIDEO_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED)
+                recordVideo();
+        }
     }
 
-    private static File getOutputMediaFile(int type) {
+    private File getOutputMediaFile(int type) {
 
         // External sdcard location
         File mediaStorageDir = new File(
@@ -223,28 +255,8 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
 
+        filePath = mediaFile.getAbsolutePath();
+
         return mediaFile;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

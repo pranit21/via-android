@@ -2,8 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.itvedant.cameraapidemo" >
 
-    <!-- Accessing camera hardware -->
-    <uses-feature android:name="android.hardware.camera" />
+    <!-- Accessing camera hardware
+        If your application uses, but does not require a camera in order to function, instead set android:required to false.
+        In doing so, Google Play will allow devices without a camera to download your application.
+        It's then your responsibility to check for the availability of the camera at runtime by calling
+        hasSystemFeature(PackageManager.FEATURE_CAMERA).
+        If a camera is not available, you should then disable your camera features.
+    -->
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -15,15 +21,23 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:configChanges="orientation|keyboard|keyboardHidden"
-            android:screenOrientation="landscape" >
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Added to overcome Android 7.0 security issue -->
+        <provider
+            android:authorities="com.itvedant.cameraapidemo.fileprovider"
+            android:name="android.support.v4.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>
