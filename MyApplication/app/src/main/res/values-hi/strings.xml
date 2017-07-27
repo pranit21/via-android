@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">मेरा आवेदन</string>
+    <string name="enter_text">पाठ दर्ज करें</string>
+    <string name="send">भेजें</string>
+</resources>

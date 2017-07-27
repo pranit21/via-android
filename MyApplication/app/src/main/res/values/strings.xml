@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">My Application</string>
-
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_via">Hello VIA</string>
+    <string name="enter_text">Enter Text</string>
+    <string name="send">Send</string>
 </resources>
