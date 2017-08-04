@@ -21,7 +21,9 @@
         <activity
             android:name=".AccelerometerActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".GyroscopeActivity"></activity>
+        <activity android:name=".GyroscopeActivity" />
+        <activity android:name=".CompassActivity" />
+        <activity android:name=".LightActivity"></activity>
     </application>
 
 </manifest>

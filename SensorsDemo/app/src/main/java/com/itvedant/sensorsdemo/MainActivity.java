@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private SensorManager sensorManager;
     private Sensor proximitySensor;
     private SensorEventListener proximityListener;
-    private Button btnAccelerometer, btnGyroscope;
+    private Button btnAccelerometer, btnGyroscope, btnCompass, btnLight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
 
         btnGyroscope = (Button) findViewById(R.id.btnGyroscope);
         btnAccelerometer = (Button) findViewById(R.id.btnAccelerometer);
+        btnCompass = (Button) findViewById(R.id.btnCompass);
+        btnLight = (Button) findViewById(R.id.btnLight);
 
         btnGyroscope.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +76,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AccelerometerActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnCompass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CompassActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnLight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LightActivity.class);
                 startActivity(intent);
             }
         });

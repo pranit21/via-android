@@ -2,4 +2,6 @@
     <string name="app_name">SensorsDemo</string>
     <string name="gyroscope">Gyroscope</string>
     <string name="accelerometer">Accelerometer</string>
+    <string name="compass">Compass</string>
+    <string name="light_sensor">Light Sensor</string>
 </resources>

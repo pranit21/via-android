@@ -23,6 +23,18 @@
             android:id="@+id/btnAccelerometer"
             android:text="@string/accelerometer"/>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnCompass"
+            android:text="@string/compass"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnLight"
+            android:text="@string/light_sensor"/>
+
         <TextView
             android:id="@+id/all_sensors"
             android:layout_width="wrap_content"

@@ -18,7 +18,8 @@ public class AccelerometerActivity extends AppCompatActivity {
     private Sensor accelerometerSensor;
     private SensorEventListener accelerometerListener;
 
-    private long lastUpdate = 0;
+    private long lastUpdate;
+    private boolean color = false;
     private float lastX, lastY, lastZ;
     private static final int SHAKE_THRESHOLD = 600;
 
@@ -33,35 +34,35 @@ public class AccelerometerActivity extends AppCompatActivity {
         textView2 = (TextView) findViewById(R.id.text_view2);
         textView3 = (TextView) findViewById(R.id.text_view3);
 
+        lastUpdate = System.currentTimeMillis();
+
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         if (accelerometerSensor != null) {
             accelerometerListener = new SensorEventListener() {
                 @Override
                 public void onSensorChanged(SensorEvent event) {
-                    Sensor sensor = event.sensor;
+                    float x = event.values[0];
+                    float y = event.values[1];
+                    float z = event.values[2];
 
-                    if (sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-                        float x = event.values[0];
-                        float y = event.values[1];
-                        float z = event.values[2];
+                    float accelerationSquareRoot = (x * x + y * y + z * z)
+                            / (SensorManager.GRAVITY_EARTH * SensorManager.GRAVITY_EARTH);
+                    long currentTime = System.currentTimeMillis();
 
-                        long currentTime = System.currentTimeMillis();
-
-                        if ((currentTime - lastUpdate) > 100) {
-                            long diffTime = currentTime - lastUpdate;
-                            lastUpdate = diffTime;
-
-                            float speed = Math.abs(x + y + z + lastX + lastY + lastZ) / diffTime * 10000;
-
-                            if (speed > SHAKE_THRESHOLD) {
-                                getRandomNumber();
-                            }
-
-                            lastX = x;
-                            lastY = y;
-                            lastZ = z;
+                    if (accelerationSquareRoot >= 2) {
+                        if ((currentTime - lastUpdate) < 200) {
+                            return;
                         }
+                        lastUpdate = currentTime;
+
+                        if (color) {
+                            getWindow().getDecorView().setBackgroundColor(Color.GREEN);
+                            getRandomNumber();
+                        } else {
+                            getWindow().getDecorView().setBackgroundColor(Color.RED);
+                        }
+                        color = !color;
                     }
                 }
 
@@ -76,13 +77,13 @@ public class AccelerometerActivity extends AppCompatActivity {
     }
 
     private void getRandomNumber() {
-        ArrayList numbersGenerated = new ArrayList();
+        ArrayList<Integer> numbersGenerated = new ArrayList<>();
 
         for (int i = 0; i < 3; i++) {
             Random randNumber = new Random();
             int iNumber = randNumber.nextInt(48) + 1;
 
-            if(!numbersGenerated.contains(iNumber)) {
+            if (!numbersGenerated.contains(iNumber)) {
                 numbersGenerated.add(iNumber);
             } else {
                 i--;
