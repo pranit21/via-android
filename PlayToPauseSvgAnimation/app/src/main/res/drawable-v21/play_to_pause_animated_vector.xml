@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_play_icon">
+
+    <target
+        android:animation="@animator/play_to_pause_morph"
+        android:name="play" />
+
+    <target
+        android:animation="@animator/play_icon_rotation"
+        android:name="rotation" />
+
+</animated-vector>
