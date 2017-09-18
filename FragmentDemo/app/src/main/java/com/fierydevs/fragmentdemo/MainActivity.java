@@ -1,18 +1,17 @@
 package com.fierydevs.fragmentdemo;
 
-import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity implements MyListFragment.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements ButtonFragment.OnButtonClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*// Check that the activity is using the layout version with the
+        // Check that the activity is using the layout version with the
         // fragment_container FrameLayout
         if(findViewById(R.id.fragment_container) != null) {
             // However, if we're being restored from a previous state,
@@ -23,36 +22,30 @@ public class MainActivity extends AppCompatActivity implements MyListFragment.On
             }
 
             // Create a new Fragment to be placed in the activity layout
-            MyListFragment myListFragment = new MyListFragment();
+            ButtonFragment buttonFragment = new ButtonFragment();
 
             // In case this activity was started with special instructions from an
             // Intent, pass the Intent's extras to the fragment as arguments
-            myListFragment.setArguments(getIntent().getExtras());
+            buttonFragment.setArguments(getIntent().getExtras());
 
             // Add the fragment to the 'fragment_container' FrameLayout
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, myListFragment).commit();
-        }*/
+                    .add(R.id.fragment_container, buttonFragment).commit();
+        }
     }
 
     @Override
-    public void onRssItemSelected(String link) {
+    public void onButtonClick(String link) {
         boolean dual_pane = getResources().getBoolean(R.bool.dual_pane);
         if (dual_pane) {
             DetailFragment fragment = (DetailFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.detailFragment);
             fragment.setText(link);
         } else {
-            /*Intent intent = new Intent(getApplicationContext(),
-                    DetailActivity.class);
-            intent.putExtra(DetailActivity.EXTRA_URL, link);
-            startActivity(intent);*/
-
-
             // Create fragment and give it an argument specifying the article it should show
             DetailFragment detailFragment = new DetailFragment();
             Bundle args = new Bundle();
-            args.putString(DetailActivity.EXTRA_URL, link);
+            args.putString("key", link);
             detailFragment.setArguments(args);
 
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

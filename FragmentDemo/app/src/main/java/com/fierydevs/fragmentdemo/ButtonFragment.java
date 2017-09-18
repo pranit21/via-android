@@ -12,13 +12,13 @@ import android.widget.Button;
 /**
  * Created by Pranit on 31-10-2015.
  */
-public class MyListFragment extends Fragment {
-    private OnItemSelectedListener listener;
+public class ButtonFragment extends Fragment {
+    private OnButtonClickListener listener;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_rsslist_overview, container, false);
+        View view = inflater.inflate(R.layout.fragment_button, container, false);
 
         Button button = (Button) view.findViewById(R.id.button1);
         button.setOnClickListener(new View.OnClickListener() {
@@ -31,18 +31,18 @@ public class MyListFragment extends Fragment {
         return view;
     }
 
-    public interface OnItemSelectedListener {
-        public void onRssItemSelected(String link);
+    interface OnButtonClickListener {
+        void onButtonClick(String link);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnItemSelectedListener) {
-            listener = (OnItemSelectedListener) context;
+        if (context instanceof OnButtonClickListener) {
+            listener = (OnButtonClickListener) context;
         } else {
             throw new ClassCastException(context.toString()
-                    + " must implement MyListFragment.OnItemSelectedListener");
+                    + " must implement ButtonFragment.OnButtonClickListener");
         }
     }
 
@@ -51,6 +51,6 @@ public class MyListFragment extends Fragment {
         // create fake data
         String newTime = String.valueOf(System.currentTimeMillis());
         // send data to activity
-        listener.onRssItemSelected(newTime);
+        listener.onButtonClick(newTime);
     }
 }
